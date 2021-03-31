@@ -12,7 +12,56 @@
 </head>
 
 <body>
+    <header>
+        <h1>Holidays</h1>
+        <p>Next holiday: <span id="nextHoliday"></span><span id="daysTil"></span> days</p>
+    </header>
+    <main>
+        <div class="container-fluid">
+            <div id="holiday-holder">
+                <h2>Upcoming Holidays</h2>
+                <div id="search">
+                    <form id="holiday-search">
+                        <label class="form-label" for="holiday"></label>
+                        <input name="name" id="input-term" type="text" autofocus="true" class="form-input" />
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <div id="list-items">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                        <li class="list-group-item">A third item</li>
+                      </ul>
+                      <ul class="list-group list-group-horizontal-sm">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                        <li class="list-group-item">A third item</li>
+                      </ul>
+                      <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                        <li class="list-group-item">A third item</li>
+                      </ul>
+                      <ul class="list-group list-group-horizontal-lg">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                        <li class="list-group-item">A third item</li>
+                      </ul>
+                      <ul class="list-group list-group-horizontal-xl">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                        <li class="list-group-item">A third item</li>
+                      </ul>
+                </div>
+            </div>
 
+
+
+        </div>
+    </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
