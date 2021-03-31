@@ -22,11 +22,14 @@ function getCalendarAPI() {
       console.log(data.response.holidays[0].name);
       console.log(data.response.holidays[0].date.iso);
       for (var i = 0; i < 25; i++) {
-        $(`#holiday${i}`).text(
+        var listEl = $("<li>");
+        listEl.text(
           data.response.holidays[i].name +
             " " +
             data.response.holidays[i].date.iso
         );
+        listEl.addClass("list-group-item");
+        holidayList.append(listEl);
       }
     });
 }
