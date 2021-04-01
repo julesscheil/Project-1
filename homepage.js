@@ -1,6 +1,6 @@
 // Psuedocode
 // 1. Set up moment
-var todaysDate = moment().format("MMM Do YY");
+var todaysDate = moment().format("DD-MM-YYYY");
 var currentYear = moment().format("YYYY");
 var holidayList = $("#holidayList");
 
@@ -21,18 +21,23 @@ function getCalendarAPI() {
       console.log(data);
       console.log(data.response.holidays[0].name);
       console.log(data.response.holidays[0].date.iso);
-      for (var i = 0; i < 25; i++) {
-        var listEl = $("<li>");
+      for (var i = 0; i < data.response.holidays.length; i++) {
+        var listEl = $("<button>");
         listEl.text(
           data.response.holidays[i].name +
             " " +
             data.response.holidays[i].date.iso
         );
         listEl.addClass("list-group-item");
+        listEl.attr('href','./results.html?q='+data.response.holidays[i].name);
         holidayList.append(listEl);
       }
     });
 }
+function getNextHoliday() {
+
+}
+
 getCalendarAPI();
 
 // 3. click event for submit button
