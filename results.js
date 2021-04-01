@@ -5,22 +5,23 @@ var savedRecipeEl = document.getElementById("saved-recipes");
 var queryString = document.location.search;
 var holiday = queryString.split("=")[1];
 var edamamUrl = "https://api.edamam.com/search?q=" + holiday + "&app_id=6896e3c1&app_key=810173b6ecf9f3abd5c456c48ec0a9cc";
-var savedRecipes = localStorage.getItem("savedRecipes") || [];
+var savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
 
 // Create function to store previously searched holidays to local storage CHANGE TO ARRAY
 function saveRecipe (event) {
-  var savedRecipe = {
+  var newRecipe = {
     name: event.target.getAttribute("data-label"),
     link: event.target.getAttribute("data-url")
   };
-  // TODO: Getting an error with push function (only when we reload the page w/ items in local storage)
-  savedRecipes.push(savedRecipe);
+  // TODO: Getting an error with push function (only when we reload the page w/ items rendered on the page)
+  savedRecipes.unshift(newRecipe);
   localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
   getRecipes();
 };
 
 // Create function to load previously searched holidays from local storage CONVERT TO ARRAY
 function getRecipes () {
+  savedRecipeEl.innerHTML = "";
   var oldRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
   if (oldRecipes !== null) {
     for (var i = 0; i < oldRecipes.length; i++) {
@@ -28,7 +29,7 @@ function getRecipes () {
       oldRecipe.textContent = oldRecipes[i].name;
       oldRecipe.setAttribute("href", oldRecipes[i].link);
       oldRecipe.setAttribute("target", "_blank");
-      oldRecipe.classList = "btn-light";
+      oldRecipe.classList = "text-light";
       savedRecipeEl.appendChild(oldRecipe);
     };
   };
@@ -107,7 +108,7 @@ function edamamQuery() {
 };
 
 // Add event listener for button click to save a recipe
-recipeCardsEl.addEventListener("click", saveRecipe)
+recipeCardsEl.addEventListener("click", saveRecipe);
 
 // Run query and display saved recipes from local storage
 edamamQuery();
