@@ -13,8 +13,10 @@ function saveRecipe (event) {
     name: event.target.getAttribute("data-label"),
     link: event.target.getAttribute("data-url")
   };
+  // TODO: Getting an error with push function (only when we reload the page w/ items in local storage)
   savedRecipes.push(savedRecipe);
   localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+  getRecipes();
 };
 
 // Create function to load previously searched holidays from local storage CONVERT TO ARRAY
