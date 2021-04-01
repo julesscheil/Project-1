@@ -1,4 +1,5 @@
 var recipeCardsEl = document.getElementById("recipe-cards");
+var EdamamEl= document.getElementById("edamam-button")
 
 // TODO: Use page URL to retrieve the holiday search term string
 var queryString = document.location.search;
@@ -45,6 +46,7 @@ function edamamQuery() {
           recipeSection.appendChild(recipeName);
 
           // Create ingredient list and display the first three ingredients
+          // This could be a loop
           var ingredientList = document.createElement("ul");
           ingredientList.classList = "card-text";
           recipeSection.appendChild(ingredientList);
@@ -79,4 +81,4 @@ function edamamQuery() {
   });
 };
 
-edamamQuery();
+EdamamEl.addEventListener("click", edamamQuery)

@@ -6,6 +6,7 @@ var holidayList = $("#holidayList");
 var holidayHolder = $("#holiday-holder");
 var nextHoliday;
 var min = 365;
+var edamamEl2 = document.getElementById("edamam-button2");
 
 // 2. fetch calendarific data (console log to test)
 var apiKey = "4e543c39030cf814f23d6b0384c5df95bb916d89";
@@ -55,7 +56,11 @@ function getCalendarAPI() {
 
 // }
 
-getCalendarAPI();
+// edamamEl2.addEventListener("click", getCalendarAPI)
+edamamEl2.addEventListener("click", function (e) {
+  e.preventDefault();
+  getCalendarAPI();
+});
 
 // 3. click event for submit button
 // 4. access calendar data
