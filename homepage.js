@@ -4,8 +4,10 @@ var todaysDate = moment().format("DD-MM-YYYY");
 var currentYear = moment().format("YYYY");
 var holidayList = $("#holidayList");
 var holidayHolder = $("#holiday-holder");
+var holidaySearch = document.getElementById("holiday-search");
 var nextHoliday;
 var min = 365;
+var edamamEl2 = document.getElementById("edamam-button2");
 
 // 2. fetch calendarific data (console log to test)
 var apiKey = "4e543c39030cf814f23d6b0384c5df95bb916d89";
@@ -55,7 +57,12 @@ function getCalendarAPI() {
 
 // }
 
-getCalendarAPI();
+edamamEl2.addEventListener("click", getCalendarAPI);
+holidaySearch.addEventListener("submit", function (e) {
+  e.preventDefault();
+  console.log("home page search");
+  $(location).attr("href", `./results.html?q=${e.target.children[1].value}`);
+});
 
 // 3. click event for submit button
 // 4. access calendar data
