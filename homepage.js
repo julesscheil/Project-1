@@ -3,6 +3,7 @@
 var todaysDate = moment().format("DD-MM-YYYY");
 var currentYear = moment().format("YYYY");
 var holidayList = $("#holidayList");
+var holidayHolder= $("#holiday-holder");
 
 // 2. fetch calendarific data (console log to test)
 var apiKey = "4e543c39030cf814f23d6b0384c5df95bb916d89";
@@ -22,21 +23,23 @@ function getCalendarAPI() {
       console.log(data.response.holidays[0].name);
       console.log(data.response.holidays[0].date.iso);
       for (var i = 0; i < data.response.holidays.length; i++) {
-        var listEl = $("<button>");
+        var listEl = $("<a>");
         listEl.text(
           data.response.holidays[i].name +
             " " +
             data.response.holidays[i].date.iso
         );
         listEl.addClass("list-group-item");
-        listEl.attr('href','./results.html?q='+data.response.holidays[i].name);
+        listEl.attr('href','./results.html?q='+ data.response.holidays[i].name);
         holidayList.append(listEl);
+
       }
     });
 }
-function getNextHoliday() {
+// function getNextHoliday() {
 
-}
+// }
+
 
 getCalendarAPI();
 
