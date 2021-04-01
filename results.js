@@ -5,17 +5,19 @@ var savedRecipeEl = document.getElementById("saved-recipes");
 var queryString = document.location.search;
 var holiday = queryString.split("=")[1];
 var edamamUrl = "https://api.edamam.com/search?q=" + holiday + "&app_id=6896e3c1&app_key=810173b6ecf9f3abd5c456c48ec0a9cc";
+var savedRecipes = localStorage.getItem("savedRecipes") || [];
 
-// TODO: Create function to store previously searched holidays to local storage
-function saveRecipe () {
-  var savedRecipes = {
-    name: data.hits[i].recipe.label,
-    link: data.hits[i].recipe.url
+// Create function to store previously searched holidays to local storage CHANGE TO ARRAY
+function saveRecipe (event) {
+  var savedRecipe = {
+    name: event.target.getAttribute("data-label"),
+    link: event.target.getAttribute("data-url")
   };
+  savedRecipes.push(savedRecipe);
   localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
 };
 
-// TODO: Create function to load previously searched holidays from local storage
+// Create function to load previously searched holidays from local storage CONVERT TO ARRAY
 function getRecipes () {
   var oldRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
   if (oldRecipes !== null) {
@@ -23,6 +25,8 @@ function getRecipes () {
       var oldRecipe = document.createElement("a");
       oldRecipe.textContent = oldRecipes[i].name;
       oldRecipe.setAttribute("href", oldRecipes[i].link);
+      oldRecipe.setAttribute("target", "_blank");
+      oldRecipe.classList = "btn-light";
       savedRecipeEl.appendChild(oldRecipe);
     };
   };
@@ -85,6 +89,8 @@ function edamamQuery() {
           var saveBtn = document.createElement("button");
           saveBtn.textContent = "Bookmark Recipe";
           saveBtn.classList = "btn-lg mt-3 w-50"
+          saveBtn.setAttribute("data-label", data.hits[i].recipe.label);
+          saveBtn.setAttribute("data-url", data.hits[i].recipe.url);
           recipeSection.appendChild(saveBtn);
         };
       } else {
@@ -98,7 +104,9 @@ function edamamQuery() {
   });
 };
 
-// TODO: Add event listener for button click to save a recipe
+// Add event listener for button click to save a recipe
+recipeCardsEl.addEventListener("click", saveRecipe)
 
-
+// Run query and display saved recipes from local storage
 edamamQuery();
+getRecipes();
