@@ -4,6 +4,7 @@ var todaysDate = moment().format("DD-MM-YYYY");
 var currentYear = moment().format("YYYY");
 var holidayList = $("#holidayList");
 var holidayHolder = $("#holiday-holder");
+var holidaySearch = document.getElementById("holiday-search");
 var nextHoliday;
 var min = 365;
 var edamamEl2 = document.getElementById("edamam-button2");
@@ -56,10 +57,11 @@ function getCalendarAPI() {
 
 // }
 
-// edamamEl2.addEventListener("click", getCalendarAPI)
-edamamEl2.addEventListener("click", function (e) {
+edamamEl2.addEventListener("click", getCalendarAPI);
+holidaySearch.addEventListener("submit", function (e) {
   e.preventDefault();
-  getCalendarAPI();
+  console.log("home page search");
+  $(location).attr("href", `./results.html?q=${e.target.children[1].value}`);
 });
 
 // 3. click event for submit button

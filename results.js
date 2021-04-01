@@ -7,7 +7,6 @@ var queryString = document.location.search;
 var holidayFromParams = queryString.split("=")[1];
 // var holiday = "ascension";
 
-
 // TODO: Create function to store previously searched holidays to local storage
 function saveHoliday() {}
 
@@ -16,14 +15,14 @@ function getHolidays() {}
 
 // Query the Edamam API for recipes matching the holiday
 function edamamQuery(holiday) {
-
   let edamamUrl =
-  "https://api.edamam.com/search?q=" +
-  holiday +
-  "&app_id=6896e3c1&app_key=810173b6ecf9f3abd5c456c48ec0a9cc";
+    "https://api.edamam.com/search?q=" +
+    holiday +
+    "&app_id=6896e3c1&app_key=810173b6ecf9f3abd5c456c48ec0a9cc";
 
   fetch(edamamUrl).then(function (response) {
     response.json().then(function (data) {
+      console.log(data);
       // If results are returned, display results
       if (data.hits.length > 0) {
         // Display up to 30 recipes returned by the API
@@ -85,7 +84,7 @@ function edamamQuery(holiday) {
   });
 }
 
-EdamamEl.addEventListener("click", function(){
+EdamamEl.addEventListener("click", function () {
   edamamQuery(holidayFromParams);
 });
 
