@@ -13,7 +13,6 @@ function saveRecipe (event) {
     name: event.target.getAttribute("data-label"),
     link: event.target.getAttribute("data-url")
   };
-  // TODO: Getting an error with push function (only when we reload the page w/ items rendered on the page)
   savedRecipes.unshift(newRecipe);
   localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
   getRecipes();
