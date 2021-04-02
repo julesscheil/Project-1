@@ -1,5 +1,7 @@
 var recipeCardsEl = document.getElementById("recipe-cards");
 var savedRecipeEl = document.getElementById("saved-recipes");
+var resultsPageSearchForm = document.getElementById("results-page-search-form");
+
 
 // Use page URL to retrieve the holiday search term string
 var queryString = document.location.search;
@@ -35,13 +37,21 @@ function getRecipes () {
 };
 
 // Query the Edamam API for recipes matching the holiday
-function edamamQuery() {
+function edamamQuery(holiday) {
+  let edamamUrl =
+    "https://api.edamam.com/search?q=" +
+    holiday +
+    "&app_id=6896e3c1&app_key=810173b6ecf9f3abd5c456c48ec0a9cc";
+
   fetch(edamamUrl).then(function (response) {
+    console.log(response);
     response.json().then(function (data) {
+      console.log(data);
       // If results are returned, display results
       if (data.hits.length > 0) {
+        recipeCardsEl.innerHTML = "";
         // Display up to 30 recipes returned by the API
-        for (var i=0; i < data.hits.length; i++) {
+        for (var i = 0; i < data.hits.length; i++) {
           // Create a recipe card for each recipe
           var cardEl = document.createElement("div");
           cardEl.classList = "card p-3 m-2 d-flex flex-row";
@@ -55,7 +65,7 @@ function edamamQuery() {
 
           // Display the recipe name
           var recipeSection = document.createElement("div");
-          recipeSection.classList = "m-3 d-flex flex-column w-100"
+          recipeSection.classList = "m-3 d-flex flex-column w-100";
           cardEl.appendChild(recipeSection);
           var recipeName = document.createElement("h3");
           recipeName.textContent = data.hits[i].recipe.label;
@@ -63,6 +73,7 @@ function edamamQuery() {
           recipeSection.appendChild(recipeName);
 
           // Create ingredient list and display the first three ingredients
+          // This could be a loop
           var ingredientList = document.createElement("ul");
           ingredientList.classList = "card-text";
           recipeSection.appendChild(ingredientList);
@@ -82,7 +93,7 @@ function edamamQuery() {
           // Display recipe link and open in a new tab
           var recipeLink = document.createElement("a");
           recipeLink.setAttribute("target", "_blank");
-          recipeLink.setAttribute("href", data.hits[i].recipe.url)
+          recipeLink.setAttribute("href", data.hits[i].recipe.url);
           recipeLink.textContent = "Source: " + data.hits[i].recipe.source;
           recipeLink.classList = "card-link";
           recipeSection.appendChild(recipeLink);
@@ -90,22 +101,33 @@ function edamamQuery() {
           // Create button to bookmark this recipe
           var saveBtn = document.createElement("button");
           saveBtn.textContent = "Bookmark Recipe";
-          saveBtn.classList = "btn-lg mt-3 w-50"
+          saveBtn.classList = "btn-lg mt-3 w-50";
           saveBtn.setAttribute("data-label", data.hits[i].recipe.label);
           saveBtn.setAttribute("data-url", data.hits[i].recipe.url);
           recipeSection.appendChild(saveBtn);
-        };
+        }
       } else {
-          // 
-          var noResults = document.createElement("h3");
-          noResults.textContent = "Your search did not return any results. Please return to the homepage and select a different holiday.";
-          noResults.classList = "p-3 text-light";
-          recipeCardsEl.appendChild(noResults);
-      };
+        //
+        var noResults = document.createElement("h3");
+        noResults.textContent =
+          "Your search did not return any results. Please return to the homepage and select a different holiday.";
+        noResults.classList = "p-3 text-light";
+        recipeCardsEl.appendChild(noResults);
+      }
     });
   });
-};
+}
 
+// EdamamEl.addEventListener("click", function () {
+//   edamamQuery(holidayFromParams);
+// });
+
+// edamamQuery(holidayFromParams);
+
+resultsPageSearchForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  edamamQuery(e.target.children[0].value);
+});
 // Add event listener for button click to save a recipe
 recipeCardsEl.addEventListener("click", saveRecipe);
 
