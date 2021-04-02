@@ -99,7 +99,7 @@ function edamamQuery() {
           // 
           var noResults = document.createElement("h3");
           noResults.textContent = "Your search did not return any results. Please return to the homepage and select a different holiday.";
-          noResults.classList = "p-3 text-light";
+          noResults.classList = "p-3 text-dark";
           recipeCardsEl.appendChild(noResults);
       };
     });
