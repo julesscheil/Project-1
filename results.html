@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-warning bg-warning justify-content-between">
+      <a href="index.html"
+        ><button type="button" class="btn btn-primary">Homepage</button></a
+      >
+      <form class="form-inline">
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-primary my-2 my-sm-0" type="submit">
+          Search
+        </button>
+      </form>
+    </nav>
+
+    <div class="d-flex flex-row align-content-start">
+      <aside class="col-3 p-3 bg-secondary">
+        <h2 class="text-primary">Previously Viewed Recipes</h2>
+        <p>Recipe 1</p>
+      </aside>
+      <main class="container-fluid col-9 p-3 bg-primary">
+        <h2 class="text-secondary m-3">Recipes for "Holiday X"</h2>
+        <div id="recipe-cards"></div>
+      </main>
+    </div>
+    <script src="results.js"></script>
+  </body>
+</html>
