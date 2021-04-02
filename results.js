@@ -4,7 +4,7 @@ var savedRecipeEl = document.getElementById("saved-recipes");
 // Use page URL to retrieve the holiday search term string
 var queryString = document.location.search;
 var holiday = queryString.split("=")[1];
-var edamamUrl = "https://api.edamam.com/search?q=" + holiday + "&app_id=6896e3c1&app_key=810173b6ecf9f3abd5c456c48ec0a9cc";
+var edamamUrl = "https://api.edamam.com/search?q=" + holiday + "&to=20&app_id=6896e3c1&app_key=810173b6ecf9f3abd5c456c48ec0a9cc";
 var savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
 
 // Create function to store previously searched holidays to local storage CHANGE TO ARRAY
@@ -28,7 +28,7 @@ function getRecipes () {
       oldRecipe.textContent = oldRecipes[i].name;
       oldRecipe.setAttribute("href", oldRecipes[i].link);
       oldRecipe.setAttribute("target", "_blank");
-      oldRecipe.classList = "text-light";
+      oldRecipe.classList = "text-dark list-group-item";
       savedRecipeEl.appendChild(oldRecipe);
     };
   };
@@ -44,7 +44,7 @@ function edamamQuery() {
         for (var i=0; i < data.hits.length; i++) {
           // Create a recipe card for each recipe
           var cardEl = document.createElement("div");
-          cardEl.classList = "card p-3 m-2 d-flex flex-row";
+          cardEl.classList = "card p-3 m-2 d-flex flex-row border border-dark";
           recipeCardsEl.appendChild(cardEl);
 
           // Display recipe image to the left or recipe
