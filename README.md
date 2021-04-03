@@ -11,7 +11,7 @@ As someone who struggles with cooking, especially around the holidays, I want a 
 # Screenshot
 
 Homepage:
-![Screenshot](./assets/homepagescreenshot.png)
+![Screenshot](./assets/hompagescreenshot.png)
 
 Recipe Results:
 ![Screenshot](./assets/resultsscreenshot.png)
