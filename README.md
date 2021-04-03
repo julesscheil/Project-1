@@ -10,4 +10,8 @@ As someone who struggles with cooking, especially around the holidays, I want a 
 
 # Screenshot
 
-![Screenshot]()
+Homepage:
+![Screenshot](./assets/homepagescreenshot.png)
+
+Recipe Results:
+![Screenshot](./assets/resultsscreenshot.png)
