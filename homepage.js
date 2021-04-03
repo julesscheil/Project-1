@@ -1,4 +1,4 @@
-// 1. Set up moment
+// Globally setting up our variables
 var todaysDate = moment().format("DD-MM-YYYY");
 var currentYear = moment().format("YYYY");
 var listJan = $("#listJanuary");
@@ -17,7 +17,7 @@ var holidayHolder = $("#holiday-holder");
 var nextHoliday;
 var min = 365;
 
-// 2. fetch calendarific data (console log to test)
+// Connecting to Calendarific API with our API Key and Parameters
 var apiKey = "4e543c39030cf814f23d6b0384c5df95bb916d89";
 var apiURL =
   "https://calendarific.com/api/v2/holidays?&api_key=" +
@@ -25,7 +25,7 @@ var apiURL =
   "&country=US&year=" +
   currentYear +
   "&type=national,religious";
-
+//  fetch calendarific data (console log to test)
 function getCalendarAPI() {
   fetch(apiURL)
     .then(function (response) {
@@ -33,6 +33,7 @@ function getCalendarAPI() {
     })
     .then(function (data) {
       console.log(data);
+      // Iterating through each holiday and retrieving its data, including the specific holiday and its date
       for (var i = 0; i < data.response.holidays.length; i++) {
         var listEl = $("<a>");
         listEl.text(
@@ -40,11 +41,13 @@ function getCalendarAPI() {
             " - " +
             data.response.holidays[i].name
         );
+        // Creating holiday list
         listEl.addClass("list-group-item");
         listEl.attr(
           "href",
           "./results.html?q=" + data.response.holidays[i].name
         );
+        // Determining the closest upcoming holiday
         var month = data.response.holidays[i].date.datetime.month;
         console.log(month);
         if (month == 1) {
@@ -72,6 +75,7 @@ function getCalendarAPI() {
         } else if (month == 12) {
           listDec.append(listEl);
         }
+        // Setting next holiday in collaboration with moment giving the current day
         var holidayDate = data.response.holidays[i].date.iso;
         var difference = moment(holidayDate).diff(moment(), "days");
         if (difference > 0 && difference < min) {
@@ -83,5 +87,5 @@ function getCalendarAPI() {
       $("#daysTil").text(" " + min);
     });
 }
-
+// Calling the function to retrieve a needed data from the API
 getCalendarAPI();
