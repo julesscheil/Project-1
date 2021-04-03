@@ -1,6 +1,5 @@
 var recipeCardsEl = document.getElementById("recipe-cards");
 var savedRecipeEl = document.getElementById("saved-recipes");
-
 // Use page URL to retrieve the holiday search term string
 var queryString = document.location.search;
 var holiday = queryString.split("=")[1];
@@ -9,34 +8,40 @@ var edamamUrl =
   holiday +
   "&to=20&app_id=6896e3c1&app_key=810173b6ecf9f3abd5c456c48ec0a9cc";
 var savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
-
-// Create function to store previously searched holidays to local storage CHANGE TO ARRAY
+// Create function to store previously searched holidays to local storage
 function saveRecipe(event) {
   var newRecipe = {
     name: event.target.getAttribute("data-label"),
     link: event.target.getAttribute("data-url"),
   };
-  savedRecipes.unshift(newRecipe);
-  localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
-  getRecipes();
-}
-
-// Create function to load previously searched holidays from local storage CONVERT TO ARRAY
+  if (newRecipe.name !== null) {
+    savedRecipes.unshift(newRecipe);
+    localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+    getRecipes();
+  };
+};
+// Create function to load previously searched holidays from local storage
 function getRecipes() {
   savedRecipeEl.innerHTML = "";
   var oldRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
   if (oldRecipes !== null) {
-    for (var i = 0; i < oldRecipes.length; i++) {
-      var oldRecipe = document.createElement("a");
-      oldRecipe.textContent = oldRecipes[i].name;
-      oldRecipe.setAttribute("href", oldRecipes[i].link);
-      oldRecipe.setAttribute("target", "_blank");
-      oldRecipe.classList = "text-dark list-group-item";
-      savedRecipeEl.appendChild(oldRecipe);
-    }
-  }
-}
-
+    if (oldRecipes.length !== 0) {
+      for (var i = 0; i < oldRecipes.length; i++) {
+        var oldRecipe = document.createElement("a");
+        oldRecipe.textContent = oldRecipes[i].name;
+        oldRecipe.setAttribute("href", oldRecipes[i].link);
+        oldRecipe.setAttribute("target", "_blank");
+        oldRecipe.classList = "text-dark list-group-item";
+        savedRecipeEl.appendChild(oldRecipe);
+        document.querySelector("#clear-list").style.display = "block";
+      };
+    } else {
+      document.querySelector("#clear-list").style.display = "none";
+    };
+  } else {
+    document.querySelector("#clear-list").style.display = "none";
+  };
+};
 // Query the Edamam API for recipes matching the holiday
 function edamamQuery() {
   fetch(edamamUrl).then(function (response) {
@@ -49,13 +54,11 @@ function edamamQuery() {
           var cardEl = document.createElement("div");
           cardEl.classList = "card p-3 m-2 d-flex flex-row border border-dark";
           recipeCardsEl.appendChild(cardEl);
-
           // Display recipe image to the left or recipe
           var recipeImg = document.createElement("img");
           recipeImg.setAttribute("src", data.hits[i].recipe.image);
           recipeImg.classList = "card-thumbnail";
           cardEl.appendChild(recipeImg);
-
           // Display the recipe name
           var recipeSection = document.createElement("div");
           recipeSection.classList = "m-3 d-flex flex-column w-100";
@@ -64,7 +67,6 @@ function edamamQuery() {
           recipeName.textContent = data.hits[i].recipe.label;
           recipeName.classList = "card-title";
           recipeSection.appendChild(recipeName);
-
           // Create ingredient list and display the first three ingredients
           var ingredientList = document.createElement("ul");
           ingredientList.classList = "card-text";
@@ -81,7 +83,6 @@ function edamamQuery() {
           var ingredient4 = document.createElement("li");
           ingredient4.textContent = "...";
           ingredientList.appendChild(ingredient4);
-
           // Display recipe link and open in a new tab
           var recipeLink = document.createElement("a");
           recipeLink.setAttribute("target", "_blank");
@@ -89,17 +90,16 @@ function edamamQuery() {
           recipeLink.textContent = "Source: " + data.hits[i].recipe.source;
           recipeLink.classList = "card-link";
           recipeSection.appendChild(recipeLink);
-
           // Create button to bookmark this recipe
           var saveBtn = document.createElement("button");
           saveBtn.textContent = "Bookmark Recipe";
-          saveBtn.classList = "btn-lg mt-3 w-50";
+          saveBtn.classList = "btn-lg mt-3 w-50 save-recipe-btn";
           saveBtn.setAttribute("data-label", data.hits[i].recipe.label);
           saveBtn.setAttribute("data-url", data.hits[i].recipe.url);
           recipeSection.appendChild(saveBtn);
         }
       } else {
-        //
+        // Display this text for no results based on text string
         var noResults = document.createElement("h3");
         noResults.textContent =
           "Your search did not return any results. Please return to the homepage and select a different holiday.";
@@ -108,11 +108,15 @@ function edamamQuery() {
       }
     });
   });
-}
-
+};
 // Add event listener for button click to save a recipe
 recipeCardsEl.addEventListener("click", saveRecipe);
-
+// Add event listener for the clear list button
+document.querySelector("#clear-list").addEventListener("click", function () {
+  localStorage.setItem("savedRecipes", JSON.stringify([]));
+  getRecipes();
+  location.reload();
+});
 // Run query and display saved recipes from local storage
 edamamQuery();
 getRecipes();
