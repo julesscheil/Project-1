@@ -2,36 +2,34 @@
 <html lang="en">
 
 <head>
+  <!-- Boilerplate and CDN's for Bootstrap and Font Awesome -->
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bake It Til You Make It</title>
+  <title>Bake It 'Til You Make It</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
     integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <!-- App Header -->
   <header class="p-3 mb-2 bg-dark text-white text-center">
     <h1>Bake it 'Til You Make it</h1>
     <p>
+     <!-- Countdown until Next Holiday -->
       Next holiday: <span id="nextHoliday"></span> <span id="daysTil" class="text-danger"></span> day(s) away
     </p>
   </header>
   <main>
+    <!-- Main Content Container -->
     <div class="container-fluid p-5">
       <div id="holiday-holder" class="border rounded border-dark p-3 mb-2 bg-light d-flex flex-column">
         <h2 class="d-flex justify-content-center mt-5">Holidays This Year</h2>
         <div id="search" class="ml-5">
-          <!-- <form id="holiday-search">
-            <label class="form-label" for="holiday"></label>
-            <input name="name" id="input-term" type="text" autofocus="true" class="form-input" />
-            <button type="submit" class="btn btn-dark">
-              <i class="fas fa-search"></i>
-            </button>
-          </form> -->
+          
         </div>
+        <!-- Holiday month containers -->
         <div class="container-fluid">
           <div class="mx-auto m-5 row col-12 col-sm-12 col-lg-12 font-weight-bold">
             <div id="listJanuary" class="list-group list-group-flush text-center col-sm"><span class="h4">January</span></div>
@@ -41,6 +39,7 @@
             <div id="listMay" class="list-group list-group-flush text-center col-sm"><span class="h4">May</span></div>
             <div id="listJune" class="list-group list-group-flush text-center col-sm"><span class="h4">June</span></div>
           </div>
+          <!-- Holiday month containers -->
           <div class="mx-auto m-5 row col-12 col-sm-12 col-lg-12 font-weight-bold">
             <div id="listJuly" class="list-group list-group-flush text-center col-sm"><span class="h4">July</span> </div>
             <div id="listAugust" class="list-group list-group-flush text-center col-sm"><span class="h4">August</span></div>
@@ -54,12 +53,16 @@
     </div>
     </div>
   </main>
+  <!-- Jquery CDN -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+  <!-- Moment CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
     integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
     crossorigin="anonymous"></script>
-  <script src="homepage.js"></script>
+ <!-- Javascript source -->
+    <script src="homepage.js"></script>
+
 </body>
 
 </html>
